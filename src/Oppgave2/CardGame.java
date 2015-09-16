@@ -38,8 +38,13 @@ public class CardGame {
         if(expression.indexOf('(')!=-1){
             int lastIndexOfBobble = expression.lastIndexOf(')');
             int firstIndexOfBobble = expression.indexOf('(');
+            String expressionWithoutBobble;
             String expressionInBobble = expression.substring(firstIndexOfBobble+1, lastIndexOfBobble);
-            String expressionWithoutBobble = expression.substring(0, firstIndexOfBobble-1) + expression.substring(lastIndexOfBobble,expression.length());
+            if(firstIndexOfBobble==0){
+                expressionWithoutBobble = expression.substring(0, firstIndexOfBobble) + expression.substring(lastIndexOfBobble+1, expression.length());
+            }else {
+                expressionWithoutBobble = expression.substring(0, firstIndexOfBobble - 1) + expression.substring(lastIndexOfBobble+1, expression.length());
+            }
             sum = evaluateExpression(expressionInBobble) + scanAndProcessTokens(expressionWithoutBobble);
         }else{
             sum = scanAndProcessTokens(expression);
@@ -63,9 +68,11 @@ public class CardGame {
                 numbers.addLast(nextToken);
             }
         }
-
+        if(sum == 0){
+            sum += Integer.parseInt(numbers.pop());
+        }
         while (numbers.size()!=0){
-           String mathSymbol= operators.pop();
+            String mathSymbol= operators.pop();
             int nextNumber = Integer.parseInt(numbers.pop());
             if (mathSymbol.equals("+")) {
                 sum = doMath("+", sum, nextNumber);
@@ -97,14 +104,14 @@ public class CardGame {
 
     public int doMath(String operator, int operand1, int operand2) {
         if (operator.equals("+")) {
-               return operand1 +operand2;
-            } else if (operator.equals("-")) {
-               return operand1 - operand2;
-            } else if (operator.equals("*")) {
-                return operand1 * operand2;
-            } else if (operator.equals("/")) {
-                return operand1 / operand2;
-            }
+            return operand1 +operand2;
+        } else if (operator.equals("-")) {
+            return operand1 - operand2;
+        } else if (operator.equals("*")) {
+            return operand1 * operand2;
+        } else if (operator.equals("/")) {
+            return operand1 / operand2;
+        }
         return 0;
     }
 }

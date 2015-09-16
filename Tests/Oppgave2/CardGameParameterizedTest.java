@@ -28,6 +28,7 @@ public class CardGameParameterizedTest {
     public static List<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {"5+5*2-6", 9},
+                {"(5*2)+5-10", 5},
                 {"2+8+2-2", 10},
                 {"9-5+3+2", 9},
                 {"13-6-2+6", 11},
