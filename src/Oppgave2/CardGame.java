@@ -1,6 +1,4 @@
 package Oppgave2;
-
-
 import java.util.ArrayDeque;
 import java.util.StringTokenizer;
 
@@ -9,98 +7,62 @@ public class CardGame {
     private ArrayDeque<String> numbers;
     private ArrayDeque<String> operators;
     private StringTokenizer tokens;
-
-
     public CardGame() {
         numbers = new ArrayDeque<>();
         operators = new ArrayDeque<>();
     }
 
-//    public int _eval(String exp) {
-//        int sum = 0;
-//        int pari = exp.indexOf('(');
-//
-//        if (pari != -1) {
-//            // int n = exp.lastIndexOf(')');
-//            // String _exp = exp.substring(pari +1, n);
-//            // exp = exp.substring(0, pari - 1) + exp.substring(pari +1, n);
-//            // sum += _eval(_exp) + process(exp);
-//        } else {
-//            // sum =  process(exp)
-//        }
-//
-//        return sum;
-//    }
-
-
     public int evaluateExpression(String expression) {
         int sum = 0;
+        String bobbleSum;
         if(expression.indexOf('(')!=-1){
             int lastIndexOfBobble = expression.lastIndexOf(')');
             int firstIndexOfBobble = expression.indexOf('(');
             String expressionWithoutBobble;
             String expressionInBobble = expression.substring(firstIndexOfBobble+1, lastIndexOfBobble);
-            if(firstIndexOfBobble==0){
-                expressionWithoutBobble = expression.substring(0, firstIndexOfBobble) + expression.substring(lastIndexOfBobble+1, expression.length());
-            }else {
-                expressionWithoutBobble = expression.substring(0, firstIndexOfBobble - 1) + expression.substring(lastIndexOfBobble+1, expression.length());
-            }
-            sum = evaluateExpression(expressionInBobble) + scanAndProcessTokens(expressionWithoutBobble);
+            bobbleSum = evaluateExpression(expressionInBobble) + "";
+            expressionWithoutBobble = expression.substring(0, firstIndexOfBobble) + bobbleSum + expression.substring(lastIndexOfBobble+1, expression.length());
+            sum = scanAndProcessTokens(expressionWithoutBobble);
         }else{
             sum = scanAndProcessTokens(expression);
         }
-
         return sum;
     }
 
     public int scanAndProcessTokens(String expression) {
         tokens = new StringTokenizer(expression, "+-/*%", true);
         int sum = 0;
+        if(expression.contains("*") || expression.contains("/")){
+            int indexOfMultiplication = expression.indexOf('*');
+            String expressionWithoutMulti;
+            String multiplication = expression.substring(indexOfMultiplication-1, indexOfMultiplication+1);
+        }
         while (tokens.hasMoreTokens()) {
             String nextToken = tokens.nextToken().trim();
             if (nextToken.length() == 0) {
                 continue;
             } else if (nextToken.equals("*") || nextToken.equals("/")) {
                 sum = doMath(nextToken, Integer.parseInt(numbers.pop()), Integer.parseInt(tokens.nextToken()));
-            }else if (nextToken.equals("+") || nextToken.equals("-")){
+            }
+            else if (nextToken.equals("+") || nextToken.equals("-")){
                 operators.addLast(nextToken);
-            }else {
+            }
+            else {
                 numbers.addLast(nextToken);
             }
         }
-        if(sum == 0){
-            sum += Integer.parseInt(numbers.pop());
-        }
+
         while (numbers.size()!=0){
-            String mathSymbol= operators.pop();
-            int nextNumber = Integer.parseInt(numbers.pop());
-            if (mathSymbol.equals("+")) {
-                sum = doMath("+", sum, nextNumber);
-            } else if (mathSymbol.equals("-")) {
-                sum = doMath("-", sum, nextNumber);
-            }
+//                int nextNumber = Integer.parseInt(numbers.pop());
+                String mathSymbol = operators.pop();
+                if (mathSymbol.equals("+")) {
+                    sum = doMath("+", Integer.parseInt(numbers.pop()), Integer.parseInt(numbers.pop()));
+                } else if (mathSymbol.equals("-")) {
+                    sum = doMath("-", Integer.parseInt(numbers.pop()), Integer.parseInt(numbers.pop()));
+                }
         }
         return sum;
     }
-
-//    private int processTokens() {
-//        int sum = Integer.parseInt(this.numbers.pop());
-//        String mathSymbol;
-//
-//        for(int i=0; i<3; i++) {
-//            mathSymbol = m,athSymbols.pop();
-//            if (mathSymbol.equals("+")) {
-//                sum = sum + Integer.parseInt(this.numbers.pop());
-//            } else if (mathSymbol.equals("-")) {
-//                sum = sum - Integer.parseInt(this.numbers.pop());
-//            } else if (mathSymbol.equals("*")) {
-//                sum = sum * Integer.parseInt(this.numbers.pop());
-//            } else if (mathSymbol.equals("/")) {
-//                sum = sum / Integer.parseInt(this.numbers.pop());
-//            }
-//        }
-//        return sum;
-//    }
 
     public int doMath(String operator, int operand1, int operand2) {
         if (operator.equals("+")) {
