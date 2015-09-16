@@ -32,7 +32,7 @@ public class CardGame {
     public int scanAndProcessTokens(String expression) {
         tokens = new StringTokenizer(expression, "+-/*%", true);
         int sum = 0;
-        if(expression.contains("*") || expression.contains("/")){
+        if(expression.contains("*")){// herrre gud
             int indexOfMultiplication = expression.indexOf('*');
             String expressionWithoutMulti;
             String multiplication = expression.substring(indexOfMultiplication-1, indexOfMultiplication+1);
