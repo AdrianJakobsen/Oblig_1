@@ -1,12 +1,16 @@
 package Oppgave2;
 import java.util.ArrayDeque;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class CardGame {
 
     private ArrayDeque<String> numbers;
     private ArrayDeque<String> operators;
+    private List<String> list;
     private StringTokenizer tokens;
+
+
     public CardGame() {
         numbers = new ArrayDeque<>();
         operators = new ArrayDeque<>();
@@ -32,11 +36,6 @@ public class CardGame {
     public int scanAndProcessTokens(String expression) {
         tokens = new StringTokenizer(expression, "+-/*%", true);
         int sum = 0;
-        if(expression.contains("*")){// herrre gud
-            int indexOfMultiplication = expression.indexOf('*');
-            String expressionWithoutMulti;
-            String multiplication = expression.substring(indexOfMultiplication-1, indexOfMultiplication+1);
-        }
         while (tokens.hasMoreTokens()) {
             String nextToken = tokens.nextToken().trim();
             if (nextToken.length() == 0) {
@@ -53,7 +52,7 @@ public class CardGame {
         }
 
         while (numbers.size()!=0){
-//                int nextNumber = Integer.parseInt(numbers.pop());
+
                 String mathSymbol = operators.pop();
                 if (mathSymbol.equals("+")) {
                     sum = doMath("+", Integer.parseInt(numbers.pop()), Integer.parseInt(numbers.pop()));
@@ -74,6 +73,7 @@ public class CardGame {
         } else if (operator.equals("/")) {
             return operand1 / operand2;
         }
+
         return 0;
     }
 }
