@@ -36,6 +36,7 @@ public class CardGame {
     public int scanAndProcessTokens(String expression) {
         tokens = new StringTokenizer(expression, "+-/*%", true);
         int sum = 0;
+        boolean checkIfItStartsWithOperator = false;
         while (tokens.hasMoreTokens()) {
             String nextToken = tokens.nextToken().trim();
             if (nextToken.length() == 0) {
@@ -55,9 +56,9 @@ public class CardGame {
 
                 String mathSymbol = operators.pop();
                 if (mathSymbol.equals("+")) {
-                    sum = doMath("+", Integer.parseInt(numbers.pop()), Integer.parseInt(numbers.pop()));
+                    sum = doMath("+", sum, Integer.parseInt(numbers.pop()));
                 } else if (mathSymbol.equals("-")) {
-                    sum = doMath("-", Integer.parseInt(numbers.pop()), Integer.parseInt(numbers.pop()));
+                    sum = doMath("-", sum, Integer.parseInt(numbers.pop()));
                 }
         }
         return sum;
