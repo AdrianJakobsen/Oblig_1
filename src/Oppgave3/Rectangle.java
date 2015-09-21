@@ -3,7 +3,7 @@ package Oppgave3;
 /**
  * Created by Adrian on 20.09.2015.
  */
-public class Rectangle extends GeometricObject implements Comparable<GeometricObjectCompare>{
+public class Rectangle extends GeometricObject implements Comparable<GeometricObject>{
 
 
     private double width;
@@ -14,6 +14,7 @@ public class Rectangle extends GeometricObject implements Comparable<GeometricOb
         this.height = height;
     }
 
+    @Override
     public double getArea(){
         double area = (this.width*this.height);
         return area;
@@ -21,7 +22,7 @@ public class Rectangle extends GeometricObject implements Comparable<GeometricOb
 
 
     @Override
-    public int compareTo(GeometricObjectCompare geometricObject) {
+    public int compareTo(GeometricObject geometricObject) {
         if(getArea() > geometricObject.getArea()){
             return 1;
         }else if(getArea() < geometricObject.getArea()){

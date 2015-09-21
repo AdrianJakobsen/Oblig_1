@@ -1,7 +1,6 @@
 package Oppgave3;
 
-
-public class Circle extends GeometricObject implements Comparable<GeometricObjectCompare>{
+public class Circle extends GeometricObject implements Comparable<GeometricObject>{
 
     private double radius;
 
@@ -12,13 +11,14 @@ public class Circle extends GeometricObject implements Comparable<GeometricObjec
         this.radius = radius;
     }
 
+    @Override
     public double getArea(){
         double area = Math.PI*Math.pow(this.radius, 2);
         return area;
     }
 
     @Override
-    public int compareTo(GeometricObjectCompare geometricObject) {
+    public int compareTo(GeometricObject geometricObject) {
         if(getArea() > geometricObject.getArea()){
             return 1;
         }else if(getArea() < geometricObject.getArea()){
