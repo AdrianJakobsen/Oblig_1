@@ -2,6 +2,10 @@ package Oppgave2;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import java.security.InvalidParameterException;
+import java.util.NoSuchElementException;
+
 import static org.junit.Assert.*;
 
 public class CardGameTest {
@@ -14,9 +18,21 @@ public class CardGameTest {
     }
 
     @Test
-    public void scanAndProcessTokens(){
+    public void scanAndProcessTokens_fourteen(){
         int returnedAnswer = calc.evaluateExpression("2+3+4+5");
         assertEquals(14, returnedAnswer);
     }
+
+    @Test(expected = NoSuchElementException.class)
+    public void sendInAnEmptyString_NoSuchElementException(){
+        calc.evaluateExpression("");
+    }
+
+    @Test(expected = InvalidParameterException.class)
+    public void sendInAnInvalidExpression_InvalidParameterException(){
+        calc.evaluateExpression("+2-4+5+6");
+    }
+
+
 
 }

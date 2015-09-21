@@ -1,4 +1,5 @@
 package Oppgave2;
+import java.security.InvalidParameterException;
 import java.util.*;
 
 public class CardGame {
@@ -12,6 +13,12 @@ public class CardGame {
     }
 
     public int evaluateExpression(String expression) {
+        if(expression.equals("")){
+            throw new NoSuchElementException();
+        }
+        if(expression.charAt(0) == '+' || expression.charAt(0) == '-' ||expression.charAt(0) == '*' ||expression.charAt(0) == '/'){
+            throw new InvalidParameterException();
+        }
         int sum = 0;
         if (expression.indexOf('(') != -1) {
             int lastIndexOfBobble = expression.lastIndexOf(')');
