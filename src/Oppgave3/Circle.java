@@ -1,30 +1,43 @@
 package Oppgave3;
 
-public class Circle extends GeometricObject implements Comparable<GeometricObject>{
-
+public class Circle extends GeometricObject {
     private double radius;
 
-    public Circle(Double radius){
-        this.radius = radius;
+    public Circle() {
     }
-    public Circle(int radius){
+
+    public Circle(double radius) {
         this.radius = radius;
     }
 
-    @Override
-    public double getArea(){
-        double area = Math.PI*Math.pow(this.radius, 2);
-        return area;
+    /** Return radius */
+    public double getRadius() {
+        return radius;
     }
 
-    @Override
-    public int compareTo(GeometricObject geometricObject) {
-        if(getArea() > geometricObject.getArea()){
-            return 1;
-        }else if(getArea() < geometricObject.getArea()){
-            return -1;
-        }else{
-            return 0;
-        }
+    /** Set a new radius */
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    @Override /** Return area */
+    public double getArea() {
+        return radius * radius * Math.PI;
+    }
+
+    /** Return diameter */
+    public double getDiameter() {
+        return 2 * radius;
+    }
+
+    @Override /** Return perimeter */
+    public double getPerimeter() {
+        return 2 * radius * Math.PI;
+    }
+
+    /* Print the circle info */
+    public void printCircle() {
+        System.out.println("The circle is created " + getDateCreated() +
+                " and the radius is " + radius);
     }
 }

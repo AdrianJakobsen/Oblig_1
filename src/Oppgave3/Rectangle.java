@@ -1,34 +1,44 @@
 package Oppgave3;
 
-/**
- * Created by Adrian on 20.09.2015.
- */
-public class Rectangle extends GeometricObject implements Comparable<GeometricObject>{
-
-
+public class Rectangle extends GeometricObject {
     private double width;
     private double height;
 
-    public Rectangle(double width, double height){
+    public Rectangle() {
+    }
+
+    public Rectangle(double width, double height) {
         this.width = width;
         this.height = height;
     }
 
-    @Override
-    public double getArea(){
-        double area = (this.width*this.height);
-        return area;
+    /** Return width */
+    public double getWidth() {
+        return width;
     }
 
+    /** Set a new width */
+    public void setWidth(double width) {
+        this.width = width;
+    }
 
-    @Override
-    public int compareTo(GeometricObject geometricObject) {
-        if(getArea() > geometricObject.getArea()){
-            return 1;
-        }else if(getArea() < geometricObject.getArea()){
-            return -1;
-        }else{
-            return 0;
-        }
+    /** Return height */
+    public double getHeight() {
+        return height;
+    }
+
+    /** Set a new height */
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    @Override /** Return area */
+    public double getArea() {
+        return width * height;
+    }
+
+    @Override /** Return perimeter */
+    public double getPerimeter() {
+        return 2 * (width + height);
     }
 }
