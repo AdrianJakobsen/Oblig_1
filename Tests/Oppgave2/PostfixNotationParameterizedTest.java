@@ -31,10 +31,15 @@ public class PostfixNotationParameterizedTest {
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {new String("1 2 +"), 3},
+                {new String("1 2 + 3 *"), 9},
                 {new String("2 1 +"), 3},
+                {new String("9 1 - 2 /"), 4},
                 {new String("1 2 -"), -1},
+                {new String("12 3 + 5 -"), 10},
                 {new String("2 1 -"), 1},
                 {new String("1 2 *"), 2},
+                {new String("2 8 %"), 2},
+                {new String("1 2 * 5 *"), 10},
                 {new String("2 1 *"), 2},
                 {new String("1 2 /"), 0},
                 {new String("2 1 /"), 2},
@@ -43,6 +48,6 @@ public class PostfixNotationParameterizedTest {
 
     @Test
     public void parameterizedTest() {
-        assertEquals(postfixNotation.evaluateExpression(expression), result,0);
+        assertEquals(postfixNotation.evaluateExpression(expression), result);
     }
 }

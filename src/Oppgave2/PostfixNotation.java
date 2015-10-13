@@ -6,7 +6,7 @@ import java.util.InputMismatchException;
 public class PostfixNotation {
     ArrayDeque<Integer> stack = new ArrayDeque();
 
-    public double evaluateExpression(String expression) {
+    public int evaluateExpression(String expression) {
         if (expression == null || expression.equals("")){
             throw new InputMismatchException("cannot be empty or null");
         }
